@@ -9,7 +9,10 @@ function popup() {
   var sheets = ss.getSheets();
   var holderArray = [];
   for(var x=0; x< sheets.length; x++){
-     holderArray.push(sheets[x].getName());
+     var sheetName = sheets[x].getName();
+    if(sheetName != 'Access'){
+     holderArray.push(sheetName);
+    }
    }
   htmlTemplate.data = {
     content: holderArray
