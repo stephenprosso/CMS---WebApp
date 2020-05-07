@@ -1,0 +1,47 @@
+<script>
+    var datags = <?!= JSON.stringify(data) ?>;
+    console.log(datags);
+</script>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <base target="_top">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+
+<body>
+    <div id="output" class="container">
+     <form>
+      <div class = "form-group"> Your Email Address:
+       <input type="email" id="email" class="form-control" value=""></div>
+      <div class="form-group">Select Content :
+         <select id="projects" class="form-control"></select></div>
+       <div class="form-group">
+         <input type="submit" id="submit" class="btn btn-primary btn-lg btn-block" value="Access Content"></div>
+       <div id="message"></div>
+     </form>
+    </div>
+    
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    
+    
+    <script>
+        $(function(){
+          init();
+          console.log(datags);
+        
+        })
+        
+        function init() {
+         for(ii=0;ii<=(datags.content.length -1);ii++){
+         $('#projects').append($('<option></option>').val(datags.content[ii]).html(datags.content[ii]));
+          }
+        }
+    </script>
+</body>
+
+</html>
