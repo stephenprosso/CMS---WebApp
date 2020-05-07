@@ -44,3 +44,12 @@ function findDataHome() {
  // //this will create a window in the sidebar with your message 
  // ui.showSidebar(htmlOutput);
  //}
+
+
+// **THIS IS A UTILITY/ HELPER FUNCTION TO INCLUDE HTMLJS PAGES IN THE HTML MASTER PAGE.
+// **THIS SHOULD REALLY GO IN A NEW FILE CALLED utils.gs
+function include(filename) {
+//file name is passed to the html service and we get the content of the file
+   return HtmlService.createHtmlOutputFromFile(filename).getContent();
+
+}
