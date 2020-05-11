@@ -22,16 +22,47 @@
        <div id="message"></div>
      </form>
     </div>
-    
-    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>    
     <script>
+      $(function(){
+          init();
+          console.log(datags);
+          $('form').submit(function(e) {
+          e.preventDefault();
+          var myData = {};
+          myData['project'] = $('#projects').val(); 
+          myData['email'] = $('#email').val();                 
+          console.log(myData);
+          google.script.run.withSuccessHandler(onResponse).eOutput(myData);
+          
+          })
+        })
+        
+        function onResponse(e){
+            
+            console.log(e);
+        }
+        
      
+        function init() {
+         for(ii=0;ii<=(datags.content.length -1);ii++){
+         //added if statement to make sure data is there before we try to write to it
+         if(datags.content[ii]){$('#projects').append($('<option></option>').val(datags.content[ii]).html(datags.content[ii]));}
+          }
+          //datags home is within an arrazy, but it is displaying reverse order. so we can reverse it with jS
+          datags.home.reverse();
+          for(i=0;i<=(datags.home.length -1);i++) {
+             if(datags.home[i][1] == 'h1'){$('#output').prepend('<h1>'+datags.home[i][0]+'</h1>');}
+             if(datags.home[i][1] == 'text'){$('#output').prepend('<p>'+datags.home[i][0]+'</p>');}
+             if(datags.home[i][1] == 'image'){$('#output').prepend('<img src="'+datags.home[i][0]+'" alt="image" >');}
+          
+          }
+        }
+        
     </script>
-     <?!= include("indexjs"); ?>
+ 
 </body>
 
 </html>

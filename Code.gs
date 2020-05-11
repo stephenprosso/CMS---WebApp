@@ -21,6 +21,12 @@ function popup() {
   var html = htmlTemplate.evaluate().setHeight(600).setWidth(600);
   SpreadsheetApp.getUi().showModalDialog(html, 'My Portal');
 }
+ 
+
+function eOutput(data) {
+   Logger.log(data);
+   return data;
+}
 
 function findDataHome() {
   var ss = SpreadsheetApp.openById('1oS0J7f7QdwSLXBRpT8xm7U3y6uR7yxDKCZQfBLuN40U');
@@ -29,6 +35,7 @@ function findDataHome() {
   var dataHome = sheet.getRange(1,1,sheet.getLastRow(),2).getValues();
   return dataHome;
 }
+
 
  //***COMMENTED OUT THIS CODE BUT KEEPING HERE FOR REFERENCE***
  //function popup() {
@@ -48,8 +55,8 @@ function findDataHome() {
 
 // **THIS IS A UTILITY/ HELPER FUNCTION TO INCLUDE HTMLJS PAGES IN THE HTML MASTER PAGE.
 // **THIS SHOULD REALLY GO IN A NEW FILE CALLED utils.gs
-function include(filename) {
+//function include(filename) {
 //file name is passed to the html service and we get the content of the file
-   return HtmlService.createHtmlOutputFromFile(filename).getContent();
+//   return HtmlService.createHtmlOutputFromFile(filename).getContent();
 
-}
+//}
