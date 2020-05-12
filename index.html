@@ -36,7 +36,7 @@
           myData['email'] = $('#email').val();                 
           console.log(myData);
           google.script.run.withSuccessHandler(onResponse).eOutput(myData);
-          
+          //google.script.run.eOutput(myData);
           })
         })
         
