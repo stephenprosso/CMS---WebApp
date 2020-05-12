@@ -22,6 +22,25 @@ function popup() {
   SpreadsheetApp.getUi().showModalDialog(html, 'My Portal');
 }
  
+function findName(e) {
+    var ss = SpreadsheetApp.openById('1oS0J7f7QdwSLXBRpT8xm7U3y6uR7yxDKCZQfBLuN40U');
+    var sheet = ss.getSheetByName('Access');
+    var data = sheet.getRange(2, 1, sheet.getLastRow() - 1, 2).getValues();
+    var response = {
+        valid: false,
+        access: 0
+    }
+    for (var x = 0; x < data.length; x++) {
+        if (data[x][0] == e) {
+            response = {
+                valid: true,
+                access: data[x][1]
+            }
+        }
+    }
+    return response;
+}
+
 
 function eOutput(data) {
   var ss = SpreadsheetApp.openById('1oS0J7f7QdwSLXBRpT8xm7U3y6uR7yxDKCZQfBLuN40U');
@@ -29,23 +48,40 @@ function eOutput(data) {
   var message = '';
   var success = false;
   var dataout = {};
+  var checkmail = findName(data.email);
   
   var sheet = ss.getSheetByName(sheetName);
-  if(sheet == null){ message = "Sheet not found!"; } else {
-    message = 'Sheet Found';
-    success = true;
-    dataout = sheet.getRange(1,1,sheet.getLastRow(),3).getValues();
+  
+  if (!checkmail.valid) { message = 'Not valid email';}
+  if(sheet == null){ message = "Sheet not found!"; } 
+  if(message = ''){
+    //they might have access
+    var lookup = parseInt(sheetName.substr(-1));
+    
+    if(checkmail['access']=='All'){
+       
+       message = 'Sheet Found';
+       success = true;
+       dataout = sheet.getRange(1,1,sheet.getLastRow(),3).getValues();
+    
+    }
+       
   }
   
   var response = {
     success : success,
     message : message,
-    data : dataout
+    data : dataout,
+    checkmail : checkmail
   
   }
   
    Logger.log(response);
    return response;
+}
+
+function isInArray(array, search) {
+    return array.indexOf(search) >= 0;
 }
 
 function findDataHome() {
